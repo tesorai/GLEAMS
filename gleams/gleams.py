@@ -57,7 +57,7 @@ def cli_embed(peak_in: List[str], embed_name: str) -> None:
         raise click.BadParameter('No input peak files specified')
 
     logger.info('GLEAMS version %s', str(__version__))
-    logger.info("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+    logger.info("Num GPUs Available: %d", len(tf.config.experimental.list_physical_devices('GPU')))
 
     # Create temporary working directory.
     temp_dir = tempfile.mkdtemp()
