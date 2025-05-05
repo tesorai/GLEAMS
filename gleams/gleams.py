@@ -12,7 +12,6 @@ os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
 import click
 import pandas as pd
-import tensorflow as tf
 
 # Initialize logging.
 from . import logger as glogger
@@ -57,7 +56,6 @@ def cli_embed(peak_in: List[str], embed_name: str) -> None:
         raise click.BadParameter('No input peak files specified')
 
     logger.info('GLEAMS version %s', str(__version__))
-    logger.info("Num GPUs Available: %d", len(tf.config.experimental.list_physical_devices('GPU')))
 
     # Create temporary working directory.
     temp_dir = tempfile.mkdtemp()
