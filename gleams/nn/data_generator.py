@@ -210,9 +210,9 @@ class EncodingsSequence(Sequence):
             A batch of encodings consisting of three NumPy arrays for the three
             input elements of the neural network.
         """
-        return tuple(_split_features_to_input(
+        return _split_features_to_input(
             self.encodings[idx * self.batch_size:(idx + 1) * self.batch_size],
-            *self.feature_split))
+            *self.feature_split)
 
 
 def _split_features_to_input(x: ss.csr_matrix, idx1: int, idx2: int)\
