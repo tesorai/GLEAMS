@@ -195,7 +195,7 @@ class EncodingsSequence(Sequence):
         return int(math.ceil(self.encodings.shape[0] / self.batch_size))
 
     def __getitem__(self, idx: int)\
-            -> List[np.ndarray]:
+            -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
         Get the batch of encodings arrays with the given index.
 
