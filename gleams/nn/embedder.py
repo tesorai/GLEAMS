@@ -386,8 +386,31 @@ class Embedder:
         np.ndarray
             The embeddings of the given samples.
         """
-        return self._get_embedder_model().predict(encodings_generator)
-
+        #return self._get_embedder_model().predict(encodings_generator)
+        model = self._get_embedder_model()
+    
+        # Manual batch processing approach for TensorFlow 2.11 compatibility
+        results = []
+        for i in range(len(encodings_generator)):
+            # Get batch data (should be a tuple or list of three arrays)
+            batch_data = encodings_generator[i]
+            
+            # Ensure batch_data is provided as a list for model input
+            if isinstance(batch_data, tuple):
+                batch_data = list(batch_data)
+                
+            # Process batch through the model
+            batch_result = model(batch_data)
+            
+            # Add to results
+            results.append(batch_result.numpy())
+        
+        # Stack all results into a single array
+        if results:
+            return np.vstack(results)
+        else:
+            return np.array([])
+ 
 
 class ValidationCallback(Callback):
     """
