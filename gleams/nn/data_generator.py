@@ -195,7 +195,7 @@ class EncodingsSequence(Sequence):
         return int(math.ceil(self.encodings.shape[0] / self.batch_size))
 
     def __getitem__(self, idx: int)\
-            -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+            -> list[np.ndarray]:
         """
         Get the batch of encodings arrays with the given index.
 
@@ -210,9 +210,9 @@ class EncodingsSequence(Sequence):
             A batch of encodings consisting of three NumPy arrays for the three
             input elements of the neural network.
         """
-        return _split_features_to_input(
+        return list(_split_features_to_input(
             self.encodings[idx * self.batch_size:(idx + 1) * self.batch_size],
-            *self.feature_split)
+            *self.feature_split))
 
 
 def _split_features_to_input(x: ss.csr_matrix, idx1: int, idx2: int)\
