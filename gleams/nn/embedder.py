@@ -386,15 +386,7 @@ class Embedder:
         np.ndarray
             The embeddings of the given samples.
         """
-        model = self._get_embedder_model()
-
-        def wrapped_gen():
-            for batch in encodings_generator:
-                if not isinstance(batch, (tuple, list)) or len(batch) != 3:
-                    raise ValueError(f"Expected 3 inputs, got {type(batch)} with length {len(batch) if hasattr(batch, '__len__') else 'N/A'}")
-                yield tuple(batch)
-    
-        return model.predict(wrapped_gen())
+        return self._get_embedder_model().predict(encodings_generator)
 
 
 class ValidationCallback(Callback):
